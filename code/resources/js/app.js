@@ -3,6 +3,8 @@ require('./bootstrap');
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
+import { Inertia } from '@inertiajs/inertia'
+import './prism';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -18,3 +20,7 @@ createInertiaApp({
 });
 
 InertiaProgress.init({ color: '#4B5563' });
+
+Inertia.on('success', (event)=>{
+    Prism.highlightAll();
+});
