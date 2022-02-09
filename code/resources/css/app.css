@@ -40,5 +40,18 @@
     @apply rounded-2xl m-3
 }
 .md-article code {
-    @apply text-emerald-400
+    @apply text-emerald-400 w-11
+}
+.md-article a {
+    @apply underline text-amber-400
+}
+.md-article a:visited {
+    @apply underline text-amber-400
+}
+.clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
 }

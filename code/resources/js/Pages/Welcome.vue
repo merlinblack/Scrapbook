@@ -12,6 +12,14 @@
             </div>
         </div>
     </header>
+    <section class="mt-20 container pl-2 flex flex-row justify-items-start flex-wrap">
+        <div class="bg-indigo-900 border rounded px-2 py-1 m-2">
+            <Link href="/">All</Link>
+        </div>
+        <div v-for="(title, category) in categories" class="bg-indigo-900 border rounded px-2 py-1 m-2">
+            <Link :href="'/?category='+category">{{title}}</Link>
+        </div>
+    </section>
     <section class="mt-20 container pl-2 flex flex-row justify-around flex-wrap">
         <div v-for="article in articles" class="bg-slate-800 border border-black hover:border-green-500 rounded-2xl w-[300px] h-64 mx-2 my-2 inline-block">
             <Link :href="'/article/' + article.slug">
@@ -20,8 +28,11 @@
             </Link>
         </div>
     </section>
+    <section class="container h-20">
+        &nbsp;
+    </section>
     <footer role="footer" class="fixed bottom-0 h-16 container mx-auto flex flex-col bg-gradient-to-b from-black to-slate-800">
-        <div class="pt-8 text-center">Copyright © Nigel Atkinson {{year}}</div>
+        <div class="pt-8 text-center">Copyright © Nigel Atkinson {{year}} | <Link href="/article/about" class="underline">About</Link></div>
     </footer>
 </template>
 
@@ -35,7 +46,16 @@ export default {
     },
     props: {
         quip: String,
+        categories: Array,
         articles: Array
     },
+    data() {
+        return {
+            'year': 2022,
+        };
+    },
+    mounted() {
+        this.year = new Date().getFullYear();
+    }
 }
 </script>

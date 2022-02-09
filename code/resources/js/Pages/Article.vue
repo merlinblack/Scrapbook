@@ -7,7 +7,7 @@
                     <h1 class="text-2xl text-white">Nigel's&nbsp;Scrapbook</h1>
                 </Link>
             </div>
-            <div class="hidden md:block bg-indigo-900 h-12 pt-4 px-4 w-1/2">
+            <div class="hidden md:block bg-indigo-900 h-12 pt-4 px-4 w-2/3">
                 {{article.title}}
             </div>
             <div class="hidden md:block w-full pt-3 pr-4 text-xs text-amber-500 text-right">
@@ -19,7 +19,7 @@
         <div class="md-article" v-html="article.html"/>
     </section>
     <footer role="footer" class="fixed bottom-0 h-16 container mx-auto flex flex-col bg-gradient-to-b from-black to-slate-800">
-        <div class="pt-8 text-center">Copyright © Nigel Atkinson {{year}}</div>
+        <div class="pt-8 text-center">Copyright © Nigel Atkinson {{year}} | <Link href="/article/about" class="underline">About</Link></div>
     </footer>
 </template>
 

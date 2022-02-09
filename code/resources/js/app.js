@@ -21,6 +21,6 @@ createInertiaApp({
 
 InertiaProgress.init({ color: '#4B5563' });
 
-Inertia.on('success', (event)=>{
+Inertia.on('navigate', (event)=>{
     Prism.highlightAll();
 });

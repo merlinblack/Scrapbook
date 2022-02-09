@@ -14,13 +14,25 @@ class ArticleController extends Controller
 {
     public function index(Request $request): Response
     {
+        $articles = Article::query()
+            ->published()
+            ->notSite()
+            ->orderBy('created_at');
+
+        if($request->has('category'))
+            $articles->category($request->get('category'));
+
+        $articles = $articles->get(['category','slug','title']);
+
         return Inertia::render('Welcome', [
             'quip' => OneLiners::getOneLiner(),
-            'articles' => Article::query()
-                ->published()
-                ->notSite()
-                ->orderBy('created_at')
-                ->get(['category','slug','title'])
+            'articles' => $articles,
+            'categories' => [
+                'türkçe' => 'Türkçe (Turkish Language)',
+                'geek' => 'Programming',
+                'poems' => 'Poems',
+                'microcontroller' => 'Microcontrollers & Electronics',
+            ]
         ]);
     }
 

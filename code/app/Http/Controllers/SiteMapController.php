@@ -22,7 +22,7 @@ class SiteMapController extends Controller
         foreach( $articles as $article )
         {
             $url = $xml->addChild('url');
-            $url->loc = url('/articles/' . $article->slug);
+            $url->loc = url('/article/' . $article->slug);
             $url->lastmod = Date(DATE_ATOM, strtotime( $article->updated_at ) );
         }
 

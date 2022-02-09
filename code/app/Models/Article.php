@@ -20,6 +20,11 @@ class Article extends Model
         return $query->where('category', '!=', 'site');
     }
 
+    public function scopeCategory(Builder $query, $category): Builder
+    {
+        return $query->where('category', $category);
+    }
+
     public function scopeSlug(Builder $query, $slug): Builder
     {
         return $query->where('slug',$slug);
