@@ -19,3 +19,5 @@ ENV PHP_IDE_CONFIG=serverName=mydocker
 COPY xdebug.ini /usr/local/etc/php/conf.d/
 
 RUN apk del --purge $PHPIZE_DEPS postgresql-dev
+
+RUN adduser -D -g "User" user

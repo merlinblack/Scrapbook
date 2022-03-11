@@ -10,6 +10,16 @@ class Article extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'slug',
+        'title',
+        'category',
+        'html',
+        'published',
+        'created_at',
+        'updated_at'
+    ];
+
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('published', true);

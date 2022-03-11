@@ -21,8 +21,6 @@ class Articles extends Migration
             $table->string('title')->default('');
             $table->longText('html');
             $table->boolean('published')->default(false);
-            $table->boolean('isphp')->default(false);
-            $table->boolean('noframe')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
