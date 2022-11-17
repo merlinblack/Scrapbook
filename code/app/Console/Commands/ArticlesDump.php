@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Article;
 use Illuminate\Console\Command;
 
-class articles_dump extends Command
+class articlesDump extends Command
 {
     /**
      * The name and signature of the console command.

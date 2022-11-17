@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
-class articles_restore extends Command
+class articlesRestore extends Command
 {
     /**
      * The name and signature of the console command.
