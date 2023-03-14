@@ -3,6 +3,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 docker run --rm --interactive --tty \
-    --volume=$DIR/../code:/app:z \
-    --user=$(id -u):$(id -g) \
-    composer composer $@
+    --volume="$DIR/../code:/app:z" \
+    --user="$(id -u):$(id -g)" \
+    composer composer "$@"
