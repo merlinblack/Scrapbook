@@ -19,7 +19,7 @@
         <div class="md-article" v-html="article.html"/>
     </section>
     <footer role="footer" class="fixed bottom-0 h-16 container mx-auto flex flex-col bg-gradient-to-b from-black to-slate-800">
-        <div class="pt-8 text-center">Copyright © Nigel Atkinson {{year}} | <Link href="/article/about" class="underline">About</Link></div>
+        <div class="pt-8 text-center">Copyright © Nigel Atkinson 2011-{{year}} | <Link href="/article/about" class="underline">About</Link></div>
     </footer>
 </template>
 
