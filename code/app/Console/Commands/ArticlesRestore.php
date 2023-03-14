@@ -77,6 +77,7 @@ class ArticlesRestore extends Command
                             $update = true;
                         }
                         if ($update) {
+                            $article->timestamps = false;   // Don't smash our updated updated_at with 'now'
                             $article->title = $json['title'];
                             $article->category = $json['category'];
                             $article->html = $json['html'];
