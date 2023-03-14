@@ -14,7 +14,7 @@ class ArticlesRestore extends Command
      *
      * @var string
      */
-    protected $signature = "articles:restore {file=archive}:base name of the output file. This will have '.tar.gz' added";
+    protected $signature = "articles:restore {file=articles : base name of the output file. This will have '.tar.gz' added} {--force : Update from file regardless of update date}";
 
     /**
      * The console command description.
@@ -37,11 +37,13 @@ class ArticlesRestore extends Command
      * Execute the console command.
      *
      * @return int
+     * @throws \Exception
      */
     public function handle()
     {
         $out = $this->getOutput();
         $file = $this->argument('file') . '.tar.gz';
+        $force = $this->option('force');
         try {
             if (!file_exists($file))
                 throw new \Exception("File: '{$file}' does not exist");
@@ -61,12 +63,20 @@ class ArticlesRestore extends Command
 
                     $article = Article::slug($json['slug'])->first();
                     if ($article) {
-                        $out->text('Article already exists.');
+                        $update = false;
+                        $out->text('Article already exists');
                         $updated = new Carbon($json['updated_at']);
                         $out->text('File version updated: ' . $updated->toIso8601String());
                         $out->text('DB   version updated: ' . $article->updated_at->toIso8601String());
                         if ($updated > $article->updated_at) {
-                            $out->text('File version is newer: updating.');
+                            $out->note('File version is newer: updating.');
+                            $update = true;
+                        }
+                        if ($force) {
+                            $out->note('Forced update from file.');
+                            $update = true;
+                        }
+                        if ($update) {
                             $article->title = $json['title'];
                             $article->category = $json['category'];
                             $article->html = $json['html'];
@@ -95,9 +105,9 @@ class ArticlesRestore extends Command
         }
         catch(\Exception $e) {
             $out->error($e->getMessage());
-            return Command::FAILURE;
+            return self::FAILURE;
         }
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

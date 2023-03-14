@@ -12,7 +12,7 @@ class ArticlesDump extends Command
      *
      * @var string
      */
-    protected $signature = "articles:dump {file=archive : base name of the output file. This will have '.tar.gz' added}";
+    protected $signature = "articles:dump {file=articles : base name of the output file. This will have '.tar.gz' added}";
 
     /**
      * The console command description.
@@ -35,10 +35,21 @@ class ArticlesDump extends Command
      * Execute the console command.
      *
      * @return int
+     * @throws \Exception
      */
     public function handle()
     {
         $tarfile = $this->argument('file') . '.tar';
+
+        if (file_exists($tarfile)) {
+            $this->getOutput()->error("File: '{$tarfile}' exists already. Cowardly refusing to overwrite it.");
+            return self::FAILURE;
+        }
+
+        if (file_exists($tarfile . '.gz')) {
+            $this->getOutput()->error("File: '{$tarfile}.gz' exists already. Cowardly refusing to overwrite it.");
+            return self::FAILURE;
+        }
 
         $archive = new \PharData($tarfile);
         $articles = Article::all();
@@ -56,6 +67,6 @@ class ArticlesDump extends Command
 
         $this->getOutput()->block('Wrote: ' . $tarfile . '.gz');
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }
