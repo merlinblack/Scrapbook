@@ -82,8 +82,8 @@ class ArticlesRestore extends Command
                             $article->category = $json['category'];
                             $article->html = $json['html'];
                             $article->published = $json['published'];
-                            $article->created_at = $json['created_at'];
-                            $article->updated_at = $json['updated_at'];
+                            $article->created_at = new Carbon($json['created_at']);
+                            $article->updated_at = new Carbon($json['updated_at']);
                             $article->save();
                         }
                     }
@@ -96,8 +96,8 @@ class ArticlesRestore extends Command
                             'category' => $json['category'],
                             'html' => $json['html'],
                             'published' => $json['published'],
-                            'created_at' => $json['created_at'],
-                            'updated_at' => $json['updated_at'],
+                            'created_at' => new Carbon($json['created_at']),
+                            'updated_at' => new Carbon($json['updated_at']),
                         ]);
                         $article->save();
                     }
