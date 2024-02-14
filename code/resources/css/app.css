@@ -7,7 +7,7 @@
     @apply text-2xl font-bold text-amber-500 mb-6;
 }
 .md-article h3 {
-    @apply font-bold text-blue-400 mt-2
+    @apply font-bold text-blue-400 mt-10
 }
 .md-article h5 {
     @apply text-lg mt-2;

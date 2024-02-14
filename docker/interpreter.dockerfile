@@ -1,4 +1,6 @@
-FROM php:8-fpm-alpine
+FROM php:8.1-fpm-alpine
+
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 RUN apk update; apk --no-cache add \
  php81-pcntl \
