@@ -1,32 +1,19 @@
 version: '3'
 services:
-    interpreter:
+    frankenphp:
         build:
-            context: .
-            dockerfile: interpreter.dockerfile
-            args:
-                - INSTALL_XDEBUG=${INTERPRETER_INSTALL_XDEBUG}
-        working_dir: /var/www
+          context: .
+          dockerfile: frankenphp.dockerfile
         volumes:
-            - ../code:/var/www:z
+            - ../code/:/app:z
         environment:
             - "DB_PORT=5432"
             - "DB_HOST=database"
         tty: true
-
-    webserver:
-        build:
-            context: .
-            dockerfile: webserver.dockerfile
-        working_dir: /var/www
-        volumes_from:
-            - interpreter
-        volumes:
-            - ./logs:/var/log/nginx:z
         ports:
-            - 8080:80
-        depends_on:
-            - interpreter
+          - "80:80"
+          - "443:443"
+          - "443:443/udp"
 
     database:
         build:
