@@ -1,0 +1,57 @@
+@import 'prism';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.md-article h1 {
+    @apply text-3xl font-bold text-amber-500 mb-6;
+}
+.md-article h3 {
+    @apply font-bold text-blue-400 mt-10
+}
+.md-article h5 {
+    @apply text-lg mt-2;
+}
+.md-article h6 {
+    @apply text-lg font-bold text-amber-500 mt-4;
+}
+.md-article p {
+    @apply mt-4;
+}
+.md-article em {
+    @apply text-blue-300;
+}
+.md-article ul {
+    @apply ml-2 my-2 font-mono
+}
+.md-article li {
+    @apply ml-2
+}
+.md-article .aside {
+    @apply bg-amber-400 text-gray-900 rounded-2xl text-xs m-3 p-3 float-right
+}
+.md-article .photo-fr {
+    @apply rounded-2xl m-3 float-right
+}
+.md-article .photo-fl {
+    @apply rounded-2xl m-3 float-left
+}
+.md-article .photo {
+    @apply rounded-2xl m-3
+}
+.md-article code {
+    @apply text-emerald-400 w-11
+}
+.md-article a {
+    @apply underline text-amber-400
+}
+.md-article a:visited {
+    @apply underline text-amber-400
+}
+.clearfix:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
