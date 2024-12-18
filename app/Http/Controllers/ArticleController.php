@@ -27,12 +27,7 @@ class ArticleController extends Controller
         return Inertia::render('Welcome', [
             'quip' => OneLiners::getOneLiner(),
             'articles' => $articles,
-            'categories' => [
-                'türkçe' => 'Türkçe (Turkish Language)',
-                'geek' => 'Programming',
-                'poems' => 'Poems',
-                'microcontroller' => 'Microcontrollers & Electronics',
-            ]
+            'categories' => Article::getCategories(),
         ]);
     }
 

@@ -1,6 +1,7 @@
 data
 oldcode
 articles.tar.gz
+Editor
 vendor
 node_modules
 storage/logs

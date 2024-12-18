@@ -12,7 +12,8 @@ class ArticlesDump extends Command
      *
      * @var string
      */
-    protected $signature = "articles:dump {file=articles : base name of the output file. This will have '.tar.gz' added}";
+    protected $signature = "articles:dump
+                            {file=articles : base name of the output file. This will have '.tar.gz' added}";
 
     /**
      * The console command description.
@@ -22,32 +23,22 @@ class ArticlesDump extends Command
     protected $description = 'Save all articles as json files in a gzipped tar archive.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
      * @throws \Exception
      */
-    public function handle()
+    public function handle(): int
     {
         $tarfile = $this->argument('file') . '.tar';
 
         if (file_exists($tarfile)) {
-            $this->getOutput()->error("File: '{$tarfile}' exists already. Cowardly refusing to overwrite it.");
+            $this->error("File: '{$tarfile}' exists already. Cowardly refusing to overwrite it.");
             return self::FAILURE;
         }
 
         if (file_exists($tarfile . '.gz')) {
-            $this->getOutput()->error("File: '{$tarfile}.gz' exists already. Cowardly refusing to overwrite it.");
+            $this->error("File: '{$tarfile}.gz' exists already. Cowardly refusing to overwrite it.");
             return self::FAILURE;
         }
 
@@ -65,7 +56,7 @@ class ArticlesDump extends Command
         /** Remove .tar */
         unlink($tarfile);
 
-        $this->getOutput()->block('Wrote: ' . $tarfile . '.gz');
+        $this->block('Wrote: ' . $tarfile . '.gz');
 
         return self::SUCCESS;
     }
