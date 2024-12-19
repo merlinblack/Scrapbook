@@ -41,6 +41,11 @@ class ArticlesCreate extends Command
             return self::FAILURE;
         }
 
+        if (Article::slug($slug)->exists()) {
+            $this->error('Slug already exists.');
+            return self::FAILURE;
+        }
+
         $this->info('Creating article: '.$title.' / '.$slug.' in '.$category);
 
         Article::create($title, $slug, $category);

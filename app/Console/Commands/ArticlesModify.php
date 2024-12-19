@@ -59,6 +59,11 @@ class ArticlesModify extends Command
             return self::FAILURE;
         }
 
+        if (!empty($new_slug) and Article::slug($new_slug)->exists()) {
+            $this->error('Slug '.$new_slug.' already exists.');
+            return self::FAILURE;
+        }
+
         $feedback = [];
 
         if ($publish) {
@@ -88,7 +93,13 @@ class ArticlesModify extends Command
 
         $article->save();
 
-        $this->getOutput()->block($feedback);
+        if (count($feedback)) {
+            $this->getOutput()->block($feedback);
+        }
+        else {
+            $this->info('Well that was easy. Nothing to do.');
+        }
+
 
         return self::SUCCESS;
     }

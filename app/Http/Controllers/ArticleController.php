@@ -12,17 +12,33 @@ use Michelf\MarkdownExtra;
 
 class ArticleController extends Controller
 {
+    private bool $onlyPublished;
+    public function __construct()
+    {
+        $this->onlyPublished = config('app.env') !== 'local';
+    }
     public function index(Request $request): Response
     {
         $articles = Article::query()
-            ->published()
             ->notSite()
             ->orderBy('created_at');
 
-        if($request->has('category'))
+        if ($this->onlyPublished) {
+            $articles->published();
+        }
+
+        if ($request->has('category'))
             $articles->category($request->get('category'));
 
         $articles = $articles->get(['category','slug','title']);
+
+        if (!$this->onlyPublished) {
+            foreach ($articles as $article) {
+                if (!$article->published) {
+                    $article->title = $article->title . ' [Unpublished]';
+                }
+            }
+        }
 
         return Inertia::render('Welcome', [
             'quip' => OneLiners::getOneLiner(),
@@ -32,14 +48,27 @@ class ArticleController extends Controller
     }
 
     /**
+     * @param Request $_ unused
+     * @param $slug
+     * @return Response
      * @throws ArticleNotFound
      */
-    public function show(Request $request, $slug): Response
+    public function show(Request $_, $slug): Response
     {
-        $article = Article::query()->published()->slug($slug)->first();
+        $article = Article::slug($slug);
+
+        if ($this->onlyPublished) {
+            $article->published();
+        }
+
+        $article = $article->first();
 
         if (!$article) {
             throw new ArticleNotFound();
+        }
+
+        if (!$article->published) {
+            $article->title = $article->title . ' [Unpublished]';
         }
 
         $html = $article->html;
