@@ -55,7 +55,7 @@ class ArticlesModify extends Command
         $article = Article::slug($slug)->first();
 
         if (!$article) {
-            $this->error('Article not found with slug ' . $slug);
+            $this->error('Article not found with slug: ' . $slug);
             return self::FAILURE;
         }
 
@@ -91,6 +91,8 @@ class ArticlesModify extends Command
             $feedback[] = 'Article category is now: ' . $category;
         }
 
+        $this->info('Updating: ' . $slug);
+
         $article->save();
 
         if (count($feedback)) {
@@ -99,7 +101,6 @@ class ArticlesModify extends Command
         else {
             $this->info('Well that was easy. Nothing to do.');
         }
-
 
         return self::SUCCESS;
     }

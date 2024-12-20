@@ -63,6 +63,8 @@ class ArticlesMonitor extends Command
             touch($filename,$article->updated_at->timestamp);
         }
 
+        $this->info("\nDirectory " . $this->edit_dir . ' initialised from database.');
+
         return true;
     }
 
@@ -103,8 +105,7 @@ class ArticlesMonitor extends Command
 
         fclose($fd);
 
-        $out->info('Exiting');
-
+        $this->info("\nExiting");
     }
 
     private function updateArticle(string $filename) : void
