@@ -30,11 +30,11 @@ class ArticleController extends Controller
         if ($request->has('category'))
             $articles->category($request->get('category'));
 
-        $articles = $articles->get(['category','slug','title']);
+        $articles = $articles->get(['category','slug','title','published']);
 
         if (!$this->onlyPublished) {
             foreach ($articles as $article) {
-                if (!$article->published) {
+                if ($article->published === false) {
                     $article->title = $article->title . ' [Unpublished]';
                 }
             }
