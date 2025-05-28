@@ -16,7 +16,7 @@ class ArticlesMonitor extends Command
      * @var string
      */
     protected $signature = 'articles:monitor
-                            {directory=Editor : Name of the directory to monitor}
+                            {directory=Articles : Name of the directory to monitor}
                             {--init : Initialise directory with articles from DB}';
 
     /**
