@@ -56,7 +56,7 @@ class ArticlesDump extends Command
         /** Remove .tar */
         unlink($tarfile);
 
-        $this->block('Wrote: ' . $tarfile . '.gz');
+        $this->info('Wrote: ' . $tarfile . '.gz');
 
         return self::SUCCESS;
     }

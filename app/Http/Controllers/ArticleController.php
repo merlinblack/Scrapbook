@@ -19,9 +19,7 @@ class ArticleController extends Controller
     }
     public function index(Request $request): Response
     {
-        $articles = Article::query()
-            ->notSite()
-            ->orderBy('created_at');
+        $articles = Article::query()->notSite();
 
         if ($this->onlyPublished) {
             $articles->published();
@@ -30,10 +28,17 @@ class ArticleController extends Controller
         if ($request->has('category'))
             $articles->category($request->get('category'));
 
-        $articles = $articles->get(['category','slug','title','published']);
+        if ($request->get('newest', 'false') === 'true') {
+            $articles->orderby('created_at','desc');
+        }
+        else {
+            $articles->orderby('created_at','asc');
+        }
+
+        $articleList = $articles->get(['category','slug','title','published']);
 
         if (!$this->onlyPublished) {
-            foreach ($articles as $article) {
+            foreach ($articleList as $article) {
                 if ($article->published === false) {
                     $article->title = $article->title . ' [Unpublished]';
                 }
@@ -42,8 +47,11 @@ class ArticleController extends Controller
 
         return Inertia::render('Welcome', [
             'quip' => OneLiners::getOneLiner(),
-            'articles' => $articles,
+            'articles' => $articleList,
             'categories' => Article::getCategories(),
+            'currentCategory' => $request->get('category',false),
+            'newest' => $request->get('newest', 'false') === 'true',
+            'debug' => '',
         ]);
     }
 
